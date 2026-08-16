@@ -1,6 +1,8 @@
 
+<p align="center"><img src="logo.svg" width="120" alt="Project logo"></p>
+
 ## Description
-A Vagrant box for trying Kolla OpenStack all-in-one through Vagrant on Ubuntu 24 ARM with the VMware Fusion provider.
+A Vagrant box for trying Kolla OpenStack all-in-one through Vagrant on Ubuntu 24 ARM with the VMware Fusion provider (for now...).
 
 For installing OpenStack, I followed the Kolla Ansible quickstart at https://docs.openstack.org/kolla-ansible/2026.1/user/quickstart.html#install-kolla-ansible. The base box I used was https://portal.cloud.hashicorp.com/vagrant/discover/gyptazy/ubuntu24.04-server-arm64 (thank you, gyptazy!).
 
