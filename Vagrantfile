@@ -84,6 +84,15 @@ Vagrant.configure("2") do |config|
 
 			if systemctl list-unit-files "$svc" --no-legend 2>/dev/null | grep -q "^$svc"; then
 				sudo systemctl enable "$svc"
+				cat <<-'BANNER'
+				+--------------------------------------------------------------------+
+				|  REBOOTING THE VM                                                  |
+				|  This lets all OpenStack (Kolla) services start cleanly.           |
+				|                                                                    |
+				|    1) Wait a few minutes, then run: vagrant ssh                    |
+				|    2) Check the VM status in your provider (VMware Fusion)         |
+				+--------------------------------------------------------------------+
+				BANNER
 				reboot
 				#sudo systemctl start "$svc"
 
