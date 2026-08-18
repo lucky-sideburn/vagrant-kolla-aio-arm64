@@ -4,6 +4,8 @@
 ## Description
 A Vagrant box for trying Kolla OpenStack all-in-one through Vagrant on Ubuntu 24 ARM with the VMware Fusion provider (for now...).
 
+<p align="center"><img src="architecture.svg" width="100%" alt="kolla-aio-arm64 is a VM with OpenStack Kolla-Ansible pre-installed, boxed with Vagrant without container images; images are pulled from quay.io during first-boot provisioning"></p>
+
 For installing OpenStack, I followed the Kolla Ansible quickstart at https://docs.openstack.org/kolla-ansible/2026.1/user/quickstart.html#install-kolla-ansible. The base box I used was https://portal.cloud.hashicorp.com/vagrant/discover/gyptazy/ubuntu24.04-server-arm64 (thank you, gyptazy!).
 
 I built the images directly into the box using the following command. Change the regex to specify which component you want to build:

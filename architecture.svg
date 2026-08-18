@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 400" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif">
+  <!-- Canvas -->
+  <rect x="0" y="0" width="920" height="400" rx="18" fill="#1c1f24"/>
+
+  <!-- Title -->
+  <text x="460" y="34" text-anchor="middle" fill="#e7e9ec" font-size="17" font-weight="600">kolla-aio-arm64: what's in the box vs. what's pulled on first boot</text>
+
+  <!-- ============ LEFT PANEL: the .box file ============ -->
+  <g>
+    <rect x="30" y="60" width="380" height="300" rx="12" fill="#23262c" stroke="#3a3f47" stroke-width="1.5"/>
+    <text x="220" y="86" text-anchor="middle" fill="#9aa3ad" font-size="12" letter-spacing="1">VAGRANT BOX FILE (.box)</text>
+
+    <!-- VM outline -->
+    <rect x="50" y="100" width="340" height="240" rx="10" fill="none" stroke="#5b6572" stroke-width="1.5" stroke-dasharray="4 3"/>
+    <text x="220" y="120" text-anchor="middle" fill="#c7ccd1" font-size="12">kolla-aio-arm64 VM · Ubuntu Noble ARM64</text>
+
+    <!-- Kolla-Ansible block -->
+    <rect x="68" y="136" width="304" height="56" rx="8" fill="#ED1944"/>
+    <text x="220" y="159" text-anchor="middle" fill="#fff" font-size="13" font-weight="600">OpenStack Kolla-Ansible</text>
+    <text x="220" y="177" text-anchor="middle" fill="#ffd9df" font-size="11">configs + systemd units, pre-baked</text>
+
+    <!-- Docker engine block -->
+    <rect x="68" y="204" width="304" height="106" rx="8" fill="#2b3038" stroke="#454b54" stroke-width="1.5"/>
+    <text x="220" y="226" text-anchor="middle" fill="#c7ccd1" font-size="13" font-weight="600">Docker engine</text>
+    <text x="220" y="244" text-anchor="middle" fill="#767e88" font-size="11">installed, daemon enabled</text>
+
+    <!-- empty image slots -->
+    <g stroke="#5b6572" stroke-width="1.3" stroke-dasharray="3 3" fill="none">
+      <rect x="86" y="256" width="60" height="34" rx="5"/>
+      <rect x="154" y="256" width="60" height="34" rx="5"/>
+      <rect x="222" y="256" width="60" height="34" rx="5"/>
+      <rect x="290" y="256" width="60" height="34" rx="5"/>
+    </g>
+    <text x="220" y="304" text-anchor="middle" fill="#767e88" font-size="11" font-style="italic">no container images — box stays small</text>
+  </g>
+
+  <!-- ============ ARROW ============ -->
+  <g>
+    <line x1="420" y1="200" x2="500" y2="200" stroke="#8b929b" stroke-width="2.5" marker-end="url(#arrow)"/>
+    <text x="460" y="182" text-anchor="middle" fill="#e7e9ec" font-size="13" font-weight="600">vagrant up</text>
+    <text x="460" y="222" text-anchor="middle" fill="#8b929b" font-size="10.5">provisioning pulls</text>
+    <text x="460" y="235" text-anchor="middle" fill="#8b929b" font-size="10.5">images from quay.io</text>
+  </g>
+
+  <!-- ============ RIGHT PANEL: running VM ============ -->
+  <g>
+    <rect x="510" y="60" width="380" height="300" rx="12" fill="#23262c" stroke="#3a3f47" stroke-width="1.5"/>
+    <text x="700" y="86" text-anchor="middle" fill="#9aa3ad" font-size="12" letter-spacing="1">RUNNING VM · AFTER FIRST-BOOT PROVISIONING</text>
+
+    <rect x="530" y="100" width="340" height="240" rx="10" fill="none" stroke="#5b6572" stroke-width="1.5" stroke-dasharray="4 3"/>
+    <text x="700" y="120" text-anchor="middle" fill="#c7ccd1" font-size="12">kolla-aio-arm64 VM · Ubuntu Noble ARM64</text>
+
+    <rect x="548" y="136" width="304" height="34" rx="8" fill="#ED1944"/>
+    <text x="700" y="158" text-anchor="middle" fill="#fff" font-size="12" font-weight="600">OpenStack Kolla-Ansible services running</text>
+
+    <rect x="548" y="182" width="304" height="128" rx="8" fill="#2b3038" stroke="#454b54" stroke-width="1.5"/>
+    <text x="700" y="200" text-anchor="middle" fill="#c7ccd1" font-size="12" font-weight="600">Docker engine — images pulled</text>
+
+    <g font-size="10" fill="#fff">
+      <rect x="566" y="212" width="70" height="26" rx="5" fill="#3e7bd6"/>
+      <text x="601" y="229" text-anchor="middle">keystone</text>
+
+      <rect x="644" y="212" width="60" height="26" rx="5" fill="#3e7bd6"/>
+      <text x="674" y="229" text-anchor="middle">nova</text>
+
+      <rect x="712" y="212" width="70" height="26" rx="5" fill="#3e7bd6"/>
+      <text x="747" y="229" text-anchor="middle">neutron</text>
+
+      <rect x="566" y="246" width="65" height="26" rx="5" fill="#3e7bd6"/>
+      <text x="598" y="263" text-anchor="middle">glance</text>
+
+      <rect x="639" y="246" width="65" height="26" rx="5" fill="#3e7bd6"/>
+      <text x="671" y="263" text-anchor="middle">horizon</text>
+
+      <rect x="712" y="246" width="70" height="26" rx="5" fill="#3e7bd6"/>
+      <text x="747" y="263" text-anchor="middle">+ more…</text>
+    </g>
+    <text x="700" y="304" text-anchor="middle" fill="#767e88" font-size="11" font-style="italic">first boot only — takes a few minutes</text>
+  </g>
+
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#8b929b"/>
+    </marker>
+  </defs>
+</svg>
