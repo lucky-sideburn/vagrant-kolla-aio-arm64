@@ -2,7 +2,7 @@ Vagrant.configure("2") do |config|
 	# Custom Kolla-Ansible AIO ARM64 box (Ubuntu Noble, provisioned).
 	config.vm.box = "lucky-sideburn/kolla-aio-arm64"
 	# Use a local box file for development, e.g.:
-	# OX_URL=file:///Users/eugenio/WORK/vagrant-kolla-aio-vmware-fusion-arm64/kolla-aio-arm64-provisioned.box vagrant up
+	#BOX_URL=file:///Users/eugenio/WORK/vagrant-kolla-aio-vmware-fusion-arm64/kolla-aio-arm64-provisioned.box vagrant up
 	config.vm.box_url = ENV.fetch("BOX_URL", "https://devopstribe.it/wp-content/uploads/2026/08/kolla-aio-arm64.box")
 	config.vm.box_check_update = false
 
@@ -28,7 +28,7 @@ Vagrant.configure("2") do |config|
 	config.ssh.keep_alive = true
 
 	# VMware Fusion / Vagrant VMware Desktop plugin settings.
-	config.vm.provider "vmware_fusion" do |v|
+	config.vm.provider "vmware_desktop" do |v|
   	v.gui = true
 		v.vmx["displayName"] = ENV.fetch("VM_NAME", "ubuntu-arm64-vm")
   	v.vmx["numvcpus"] = ENV.fetch("VM_CPUS", "4")
