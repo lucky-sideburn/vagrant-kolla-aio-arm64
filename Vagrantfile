@@ -1,6 +1,7 @@
 Vagrant.configure("2") do |config|
 	# Custom Kolla-Ansible AIO ARM64 box (Ubuntu Noble, provisioned).
 	config.vm.box = "lucky-sideburn/kolla-aio-arm64"
+	config.vm.box_url = "file:////Users/eugenio/WORK/vagrant-kolla-aio-vmware-fusion-arm64/kolla-aio-arm64.box"
 	config.vm.box_check_update = false
 
 	# VM identity.
@@ -26,17 +27,28 @@ Vagrant.configure("2") do |config|
 
 	# VMware Fusion / Vagrant VMware Desktop plugin settings.
 	config.vm.provider "vmware_desktop" do |v|
-		v.gui = true
+  	v.gui = true
 		v.vmx["displayName"] = ENV.fetch("VM_NAME", "ubuntu-arm64-vm")
-		v.vmx["numvcpus"] = ENV.fetch("VM_CPUS", "4")
+  	v.vmx["numvcpus"] = ENV.fetch("VM_CPUS", "4")
 		v.vmx["memsize"] = ENV.fetch("VM_MEMORY_MB", "12288") # 12 GiB
 	end
 
 	# List of services that must be enabled and running (see kolla-services.conf).
 	config.vm.provision "file", source: "kolla-services.conf", destination: "/tmp/kolla-services.conf"
 
+	# List of Kolla container images to pre-pull (see kolla-images.conf).
+	config.vm.provision "file", source: "kolla-images.conf", destination: "/tmp/kolla-images.conf"
+
 	# SSH login banner (see motd-banner.sh).
 	config.vm.provision "file", source: "motd-banner.sh", destination: "/tmp/00-kolla-banner"
+
+	# Heads-up message shown as soon as provisioning starts, since pulling
+	# ~30 Kolla images can take a while depending on your connection.
+	config.vm.provision "shell", inline: <<-SHELL
+		echo "==> Provisioning started: this will pull ~30 Kolla container images"
+		echo "==> (tens of GB in total). This can take a while depending on your"
+		echo "==> network connection - please be patient and let it finish."
+	SHELL
 
 	# Basic provisioning convenience.
 	config.vm.provision "shell", inline: <<-SHELL
@@ -46,6 +58,17 @@ Vagrant.configure("2") do |config|
 
 		# Install the dynamic MOTD banner shown on every SSH login.
 		sudo install -o root -g root -m 0755 /tmp/00-kolla-banner /etc/update-motd.d/00-kolla-banner
+
+		# Pre-pull all Kolla container images listed in kolla-images.conf
+		# before enabling/starting the kolla-*-container services below, so
+		# systemd doesn't race Docker for the same images on first boot.
+		while IFS= read -r image; do
+			image="${image%%#*}"
+			image="$(echo "$image" | xargs)"
+			[ -z "$image" ] && continue
+
+			sudo docker pull "$image"
+		done < /tmp/kolla-images.conf
 
 		# Ensure Docker and all Kolla-Ansible container services listed in
 		# kolla-services.conf are both enabled (start on boot) and started
