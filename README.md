@@ -12,6 +12,19 @@ I built the images directly into the box using the following command. Change the
 kolla-build -b ubuntu --openstack-release 2026.1 --tag 2026.1-ubuntu-noble-aarch64 '^(nova).*'
 ```
 
+### Usage
+
+```bash
+vagrant plugin install vagrant-vmware-desktop
+vagrant up
+```
+
+To tear the VM down:
+
+```bash
+vagrant destroy
+```
+
 ### Docker images not included in the box, pulled on first boot
 
 To keep the box size down, this Vagrant box is distributed **without** the Kolla Docker images pre-pulled. On first boot, Docker will pull all the Kolla container images from the registry, so the `kolla-*-container` services may take a few minutes to become healthy the first time. A banner reminding you of this is shown on every SSH login.
