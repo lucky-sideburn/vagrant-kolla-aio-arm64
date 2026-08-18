@@ -3,7 +3,7 @@ Vagrant.configure("2") do |config|
 	config.vm.box = "lucky-sideburn/kolla-aio-arm64"
 	# Use a local box file for development, e.g.:
 	# BOX_URL=file:///Users/eugenio/WORK/vagrant-kolla-aio-vmware-fusion-arm64/kolla-aio-arm64-provisioned.box vagrant up
-	config.vm.box_url = ENV.fetch("BOX_URL", "https://devopstribe.it/wp-content/uploads/2026/08/kolla-aio-arm64.box")
+	#config.vm.box_url = ENV.fetch("BOX_URL", "https://devopstribe.it/wp-content/uploads/2026/08/kolla-aio-arm64.box")
 	config.vm.box_check_update = false
 
 	# VM identity.
