@@ -1,6 +1,4 @@
 
-<p align="center"><img src="logo.svg" width="120" alt="Project logo"></p>
-
 ## Description
 A Vagrant box for trying Kolla OpenStack all-in-one through Vagrant on Ubuntu 24 ARM with the VMware Fusion provider (for now...).
 
