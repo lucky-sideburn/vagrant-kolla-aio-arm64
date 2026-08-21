@@ -3,8 +3,12 @@ Vagrant.configure("2") do |config|
 	config.vm.box = "lucky-sideburn/kolla-aio-arm64"
 	# Use a local box file for development, e.g.:
 	#BOX_URL=file:///Users/eugenio/WORK/vagrant-kolla-aio-vmware-fusion-arm64/kolla-aio-arm64-provisioned.box vagrant up
-	config.vm.box_url = ENV.fetch("BOX_URL", "https://devopstribe.it/wp-content/uploads/2026/08/kolla-aio-arm64.box")
-	config.vm.box_check_update = false
+	#config.vm.box_url = ENV.fetch("BOX_URL", "https://devopstribe.it/wp-content/uploads/2026/08/kolla-aio-arm64.box")
+	
+	config.vm.box_check_update = true
+	config.vm.box = "lucky-sideburn/kolla-aio-arm64"
+	config.vm.box_url = "https://devopstribe.it/wp-content/uploads/2026/08/kolla-aio-arm64.json"
+	config.vm.box_version = ">= 1.0.1"
 
 	# VM identity.
 	config.vm.hostname = "kolla-aio-arm64"
@@ -33,6 +37,7 @@ Vagrant.configure("2") do |config|
 		v.vmx["displayName"] = ENV.fetch("VM_NAME", "ubuntu-arm64-vm")
   	v.vmx["numvcpus"] = ENV.fetch("VM_CPUS", "4")
 		v.vmx["memsize"] = ENV.fetch("VM_MEMORY_MB", "12288") # 12 GiB
+		v.vmx["tools.syncTime"] = "FALSE"
 	end
 
 	# List of services that must be enabled and running (see kolla-services.conf).
